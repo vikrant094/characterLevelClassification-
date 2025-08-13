@@ -1,6 +1,7 @@
 from characterLevelClassification.config.configuration import ConfigurationManager
 from characterLevelClassification.conponents.model_trainer import ModelTrainer
 from characterLevelClassification.logging import logger
+
 import time
 class ModelTrainerTrainingPipeline:
     def __init__(self):
@@ -14,11 +15,6 @@ class ModelTrainerTrainingPipeline:
         number_of_classes = len(all_data.labels_uniq)
         model = train_obj.get_model(number_of_classes)
         start = time.time()
-        all_losses = train_obj.train(model, train_set)
+        train_obj.train(model, train_set)
         end = time.time()
         logger.info(f"training took {end-start}s")
-
-        train_obj.plot_result()
-
-        train_obj.evaluate(model, test_set, classes=all_data.labels_uniq)
-        

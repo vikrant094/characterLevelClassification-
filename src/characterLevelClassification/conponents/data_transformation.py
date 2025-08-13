@@ -11,9 +11,7 @@ import glob
 import time
 import torch
 import os
-from torch.utils.data import (Dataset,
-                              random_split
-                            )
+from torch.utils.data import Dataset
 
 class NamesDataset(Dataset):
 
@@ -31,22 +29,6 @@ class NamesDataset(Dataset):
         self.labels = labels
         self.labels_tensors = labels_tensors
         self.labels_uniq = list(set(labels))
-        # #read all the ``.txt`` files in the specified directory
-        # text_files = glob.glob(os.path.join(data_dir, '*.txt'))
-        # for filename in text_files:
-        #     label = os.path.splitext(os.path.basename(filename))[0]
-        #     labels_set.add(label)
-        #     lines = open(filename, encoding='utf-8').read().strip().split('\n')
-        #     for name in lines:
-        #         self.data.append(name)
-        #         self.data_tensors.append(lineToTensor(name))
-        #         self.labels.append(label)
-
-        # #Cache the tensor representation of the labels
-        # self.labels_uniq = list(labels_set)
-        # for idx in range(len(self.labels)):
-        #     temp_tensor = torch.tensor([self.labels_uniq.index(self.labels[idx])], dtype=torch.long)
-        #     self.labels_tensors.append(temp_tensor)
 
     def __len__(self):
         return len(self.data)
@@ -86,7 +68,8 @@ class DataTransformation:
                 self.labels.append(label)
 
         #Cache the tensor representation of the labels
-        self.labels_uniq = list(labels_set)
+        self.labels_uniq = self.config.classes
+        print("self.labels_uniq :", self.labels_uniq)
         for idx in range(len(self.labels)):
             temp_tensor = torch.tensor([self.labels_uniq.index(self.labels[idx])], dtype=torch.long)
             self.labels_tensors.append(temp_tensor)

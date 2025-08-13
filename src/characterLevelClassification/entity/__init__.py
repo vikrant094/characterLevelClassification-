@@ -19,6 +19,7 @@ class DataValidationConfig:
 class DataTransformationConfig:
     root_dir: Path
     STATUS_FILE: str
+    classes : list
 
 @dataclass(frozen=True)
 class ModelTrainerConfig:
@@ -36,6 +37,7 @@ class ModelTrainerConfig:
     gradient_accumulation_steps: int
     n_hidden: int
     test_prct : int
+   
 
 
 @dataclass(frozen=True)

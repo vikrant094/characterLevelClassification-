@@ -10,7 +10,7 @@ import string
 import unicodedata
 import torch
 from characterLevelClassification.constants import ALLOWED_CHARACTERS
-
+import matplotlib.pyplot as plt
 
 
 @ensure_annotations
@@ -103,3 +103,8 @@ def label_from_output(output, output_labels):
     top_n, top_i = output.topk(1)
     label_i = top_i[0].item()
     return output_labels[label_i], label_i
+
+def plot_result(all_losses, path):
+    plt.figure()
+    plt.plot(all_losses)
+    plt.savefig(path)
